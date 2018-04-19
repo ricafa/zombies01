@@ -5,3 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+if Survivor.count == 0
+	5.times{|i| Survivor.create(name: 'Survivor #{i}', age: i*13)}
+	puts "Survivors ready for the zombies"
+else
+	puts "Survivors already there"
+end
+
+if Item.count == 0
+	
+	Item.create(description: "Water", point: 4)
+	Item.create(description: "Food", point: 3)
+	Item.create(description: "Medication", point: 2)
+	Item.create(description: "Ammunition", point: 1)
+	puts "Items created"
+else
+	puts "Items already created"
+end

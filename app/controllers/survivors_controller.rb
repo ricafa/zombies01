@@ -16,9 +16,11 @@ class SurvivorsController < ApplicationController
   # POST /survivors
   def create
     @survivor = Survivor.new(survivor_params)
-
+    #@survivor.inventory_items.create(inventory_item_attributes)
     if @survivor.save
-      render json: @survivor, status: :created, location: @survivor
+      render json: @survivor.to_json(except: [
+                                    :created_at, :updated_at, :infectqtt, :infected
+                                    ], include: :inventory_items), status: :created, location: @survivor
     else
       render json: @survivor.errors, status: :unprocessable_entity
     end
@@ -27,9 +29,19 @@ class SurvivorsController < ApplicationController
   # PATCH/PUT /survivors/1
   def update
     if @survivor.update(survivor_params)
-      render json: @survivor
+      render json: @survivor.to_json(except: [:create_at, :update_at, :infectqtt, :infected], include: :inventory_items)
     else
       render json: @survivor.errors, status: :unprocessable_entity
+    end
+  end
+
+  #GET contaminated
+  def contaminated
+    survivor = Survivor.find(params[:id])
+    if survivor.mark_contamination_report
+      render json: {msg: (I18n.t 'controllers.survivor.infected_message')}
+    else
+      render json: {msg: (I18n.t 'controllers.survivor.success_report_message')}
     end
   end
 
@@ -46,6 +58,6 @@ class SurvivorsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def survivor_params
-      params.require(:survivor).permit(:name, :age, :gender, :latitude, :longitude, :infected)
+      params.require(:survivor).permit(:name, :age, :gender, :latitude, :longitude, :infected, inventory_items_attributes: [:item_id, :qtt])
     end
 end

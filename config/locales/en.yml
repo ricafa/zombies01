@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  controllers:
+    survivor:
+      infected_message: "Contamination reported. I must say, this survivor is infected!"
+      success_report_message: "Contamination reported. We are sorry about that."
