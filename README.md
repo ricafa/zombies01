@@ -1,16 +1,12 @@
-Show items
-Show al the items
+## Show items
 
-URL
-
+**URL**
 /items
 
-Method:
-
+**Method**
 GET
 
-Success Response:
-
+**Success Response**
 Content: [{id: 1 
 					 description: "Name", 
 					 point: 4,
@@ -26,19 +22,15 @@ Content: [{id: 1
 			   ]
 
 
-Create Survivor
-Creates a survivor and its items.
+## Creates a Survivor and its items.
 
-URL
-
+**URL**
 /survivors/
 
-Method:
-
+**Method**
 POST
 
-Data Params
-
+**Data Params**
 {name: "Name",
  age : 22,
  gender: (1- masc, 2- fem,
@@ -57,8 +49,7 @@ Data Params
   ]
 }
 
-Success Response:
-
+**Success Response**
 Content: { name: "Name", 
 					 age: 22, 
 					 gender: 1/2, 
@@ -75,32 +66,27 @@ Content: { name: "Name",
 					 	}
 					 ]
 			   }
-Error Response:
-
+			   
+**Error Response**
 Content: { field: ["error00 reaspm", "error01 reason"] }
 
-
-Update Location
+## Update Location
 Updates a survivor location
 
-URL
-
+**URL**
 /survivors/{id}
 
-Method:
-
+**Method**
 POST
 
-Data Params
-
+**Data Params**
 {survivor: {
 	latidude: (new coordinate),
 	longitude: (new coordinate)
 	}
 }
 
-Success Response:
-
+**Success Response**
 Content: { name: "Name", 
 					 age: 22, 
 					 gender: 1/2, 
@@ -117,44 +103,36 @@ Content: { name: "Name",
 					 	}
 					 ]
 			   }
-Error Response:
-
+**Error Response**
 Content: { field: ["error00 reaspm", "error01 reason"] }
 
 
-
-Mark as infected
+**Mark as infected**
 Mark a survivor as INFECTED
 
-URL
-
+**URL**
 /contaminated/{survivor_id}
 
-Method:
+**Method**
+GET
 
-get
-
-Success Response:
-
+**Success Response**
 Content: { msg: "String" }
-Error Response:
 
+**Error Response**
 Content: { field: ["error00 reasom", "error01 reason"] }
 
 
-Trade
+## Trade
 Trade items between survivors
 
-URL
-
+**URL**
 /trade
 
-Method:
-
+**Method**
 POST
 
-Data Params
-
+**Data Params**
 {
 	trade_items: {
 		trade_items: [{
@@ -175,11 +153,10 @@ Data Params
 	}
 }
 
-Success Response:
-
+**Success Response**
 Content: { done: true, 
 					 msg: "Successfull message"
 			   }
-Error Response:
-
+			   
+**Error Response**
 Content: { done: false, msg: "error message" }
