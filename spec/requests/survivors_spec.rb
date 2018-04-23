@@ -18,7 +18,20 @@ RSpec.describe "Survivors", type: :request do
 				id: /\d/,
 				name: survivor_params.fetch(:name),
 				age:  survivor_params.fetch(:age)
-			)
+			)  
+    end
+
+    it 'creates new one, with inventory' do
+      headers={"ACCEPT"=>"application/json"}
+      item = create(:item)
+      item2 = create(:item)
+      survivor_params = {name: 'Ricardo', inventory_items_attributes:[{item_id: item.id, qtt: 2}, {item_id: item2.id, qtt: 3}]}
+      post "/survivors.json", params: {survivor: survivor_params}, headers: headers
+
+      p response.body
+      expect(response.body).to include_json(
+        name: (  be_kind_of String)
+      )
     end
 
     it 'report contamination' do 
@@ -47,18 +60,6 @@ RSpec.describe "Survivors", type: :request do
       expect(response.body).to include_json(
         latitude: (  be_kind_of String),
         longitude: ( be_kind_of String)
-      )
-    end
-
-    it 'creates new one, with inventory' do
-      headers={"ACCEPT"=>"application/json"}
-      item = create(:item)
-      item2 = create(:item)
-      survivor_params = {name: 'Ricardo', inventory_items_attributes:[{item_id: item.id, qtt: 2}, {item_id: item2.id, qtt: 3}]}
-      post "/survivors.json", params: {survivor: survivor_params}, headers: headers
-
-      expect(response.body).to include_json(
-        name: (  be_kind_of String)
       )
     end
   end

@@ -24,6 +24,19 @@ class InventoryItemsController < ApplicationController
     end
   end
 
+  #POST json
+  def trade
+    errors = []
+    errors << "There is no param. Documentation can help, you should try." if params[:trade_items].present?
+    errors << "You only must specify the survivor receiver and sender, and the items to trade. " if params[:trade_items].length == 2
+
+    if errors.length < 0 
+      #success
+    else
+      render json: {msg: errors.join(',').to_json}
+    end
+  end
+
   # PATCH/PUT /inventory_items/1
   def update
     if @inventory_item.update(inventory_item_params)

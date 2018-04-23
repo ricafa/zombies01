@@ -1,24 +1,53 @@
-# README
+Create Survivor
+Creates a survivor and its items.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+URL
 
-Things you may want to cover:
+/survivors/
 
-* Ruby version
+Method:
 
-* System dependencies
+POST
 
-* Configuration
+Data Params
 
-* Database creation
+{name: "Name",
+ age : 22,
+ gender: (1- masc, 2- fem,
+ latitude: 12.212120,
+ longitude: 12.212120,
+ inventory_items_attributes:
+ [
+		{
+			item_id: id1, 
+			qtt: qtt1
+		},
+		{
+			item_id: id2, 
+			qtt: qtt2
+		}
+  ]
+}
 
-* Database initialization
+Success Response:
 
-* How to run the test suite
+Content: { name: "Name", 
+					 age: 22, 
+					 gender: 1/2, 
+					 latitude: 12.212120, 
+					 longitude: 12.212120,
+					 inventory_items: 
+					 [
+					 	{
+					 		survivor_id: sur1,
+					 		item_id: id1,
+					 		qtt: qtt1,
+					 		create_at: (datetime),
+					 		update_at: nil
+					 	}
+					 ]
+			   }
+Error Response:
 
-* Services (job queues, cache servers, search engines, etc.)
+Content: { field: ["error00 reaspm", "error01 reason"] }
 
-* Deployment instructions
-
-* ...
