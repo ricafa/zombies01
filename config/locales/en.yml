@@ -24,3 +24,9 @@ en:
     survivor:
       infected_message: "Contamination reported. I must say, this survivor is infected!"
       success_report_message: "Contamination reported. We are sorry about that."
+    inventory_items:
+      points_differ: "Trade can't be done. The item's point differ from one survivor to another."
+      items_enough: "%{sur_name}(id %{sur_id}), don't get quantity %{qtt} of %{item_description}(id %{item_id})"
+      trade_success: "The trade was completed succesfully"
+      empty_params: "There is no param. Documentation can help, you should try."
+      missing_params: "You only must specify the receiver, sender, and the items to trade."

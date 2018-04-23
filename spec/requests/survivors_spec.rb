@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe "Survivors", type: :request do
   describe "GET /survivors" do
 
-    it "works!" do
+    it "listing all survivors" do
       get survivors_path
       expect(response).to have_http_status(200)
     end
 
-    it 'new one' do 
+    it 'creates new one, without inventory' do 
     	headers={"ACCEPT"=>"application/json"}
 
     	survivor_params = attributes_for(:survivor)
@@ -28,7 +28,6 @@ RSpec.describe "Survivors", type: :request do
       survivor_params = {name: 'Ricardo', inventory_items_attributes:[{item_id: item.id, qtt: 2}, {item_id: item2.id, qtt: 3}]}
       post "/survivors.json", params: {survivor: survivor_params}, headers: headers
 
-      p response.body
       expect(response.body).to include_json(
         name: (  be_kind_of String)
       )

@@ -1,14 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Survivor, type: :model do
-  it 'Creates without inventory ' do 
+  it 'Creates new one ' do 
   	survivor = create(:survivor)
   	expect(survivor).to be_valid
-  end
-
-  it 'creates with inventory' do 
-    survivor = create(:survivor_with_item)
-    expect(survivor).to be_valid
   end
 
   it 'cannot be created with invalid name' do 

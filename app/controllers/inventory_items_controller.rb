@@ -1,40 +1,16 @@
 class InventoryItemsController < ApplicationController
   before_action :set_inventory_item, only: [:show, :update, :destroy]
 
-  # GET /inventory_items
+ # GET /items
   def index
     @inventory_items = InventoryItem.all
 
     render json: @inventory_items
   end
 
-  # GET /inventory_items/1
+  # GET /items/1
   def show
     render json: @inventory_item
-  end
-
-  # POST /inventory_items
-  def create
-    @inventory_item = InventoryItem.new(inventory_item_params)
-
-    if @inventory_item.save
-      render json: @inventory_item, status: :created, location: @inventory_item
-    else
-      render json: @inventory_item.errors, status: :unprocessable_entity
-    end
-  end
-
-  #POST json
-  def trade
-    errors = []
-    errors << "There is no param. Documentation can help, you should try." if params[:trade_items].present?
-    errors << "You only must specify the survivor receiver and sender, and the items to trade. " if params[:trade_items].length == 2
-
-    if errors.length < 0 
-      #success
-    else
-      render json: {msg: errors.join(',').to_json}
-    end
   end
 
   # PATCH/PUT /inventory_items/1
@@ -46,9 +22,23 @@ class InventoryItemsController < ApplicationController
     end
   end
 
-  # DELETE /inventory_items/1
-  def destroy
-    @inventory_item.destroy
+  #POST json
+  def trade
+    #binding.pry
+    errors = []
+    trade_items = trade_items_params[:trade_items]
+
+    if trade_items.nil?
+      errors << (I18n.t 'controllers.inventory_items.empty_params') 
+    elsif trade_items.length != 2
+      errors << (I18n.t 'controllers.inventory_items.missing_params') 
+    end
+
+    if errors.length <= 0 
+      render json: (InventoryItem.trade trade_items_params)
+    else
+      render json: {done: false, msg: errors[0]}
+    end
   end
 
   private
@@ -60,5 +50,10 @@ class InventoryItemsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def inventory_item_params
       params.require(:inventory_item).permit(:survivor_id, :item_id, :qtt)
+    end
+
+    def trade_items_params
+      permitted = params.require(:trade_items).permit(trade_items: [:survivor_id, items:[:item, :qtt]])
+      permitted.to_h || {}
     end
 end
